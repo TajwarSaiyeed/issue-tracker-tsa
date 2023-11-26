@@ -10,6 +10,7 @@ import {BiErrorCircle} from "react-icons/bi";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createIssueSchema} from "@/app/validationSchemas";
 import {z} from "zod";
+import ErrorMessage from "@/components/error-message";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -54,7 +55,7 @@ const NewIssue = () => {
                         {...register("title")}
                         placeholder={'Title'}/>
                 </TextField.Root>
-                {errors.title && <Text as={'p'} color={'red'}>{errors.title.message}</Text>}
+                <ErrorMessage>{errors?.title?.message}</ErrorMessage>
 
                 <Controller
                     control={control}
@@ -62,7 +63,9 @@ const NewIssue = () => {
                     render={({field}) => (<SimpleMDE placeholder="Description" {...field}/>)}
                 />
 
-                {errors.description && <Text as={'p'} color={'red'}>{errors.description.message}</Text>}
+                <ErrorMessage>
+                    {errors?.description?.message}
+                </ErrorMessage>
 
                 <Button disabled={!isValid}>
                     Submit New Issue
