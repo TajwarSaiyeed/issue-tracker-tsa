@@ -11,11 +11,13 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {createIssueSchema} from "@/app/validationSchemas";
 import {z} from "zod";
 import ErrorMessage from "@/components/error-message";
+import Spinner from "@/components/spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssue = () => {
     const [error, setError] = useState('');
+    const [isSubmitting, setSubmitting] = useState(false);
 
     const {
         register,
@@ -28,6 +30,20 @@ const NewIssue = () => {
     } = useForm<IssueForm>({resolver: zodResolver(createIssueSchema)})
 
     const router = useRouter()
+
+
+    const onSubmit = async (data: IssueForm) => {
+        try {
+            setSubmitting(true)
+            await axios.post('/api/issues', data)
+            router.push('/issues')
+        } catch (error) {
+            setError("An unexpected error occurred.")
+        } finally {
+            setSubmitting(false)
+        }
+    }
+
     return (
         <div className={'max-w-xl'}>
             {error && <Callout.Root color={'red'} className={'mb-5'}>
@@ -39,14 +55,7 @@ const NewIssue = () => {
                 </Callout.Text>
             </Callout.Root>}
             <form
-                onSubmit={handleSubmit(async (data) => {
-                    try {
-                        await axios.post('/api/issues', data)
-                        router.push('/issues')
-                    } catch (error) {
-                        setError("An unexpected error occurred.")
-                    }
-                })}
+                onSubmit={handleSubmit(onSubmit)}
                 className={'space-y-3'}
             >
 
@@ -67,8 +76,8 @@ const NewIssue = () => {
                     {errors?.description?.message}
                 </ErrorMessage>
 
-                <Button disabled={!isValid}>
-                    Submit New Issue
+                <Button disabled={!isValid || isSubmitting}>
+                    Submit New Issue {isSubmitting && <Spinner/>}
                 </Button>
             </form>
         </div>
