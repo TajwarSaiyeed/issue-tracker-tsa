@@ -1,5 +1,4 @@
 'use client'
-import {Button, Callout, TextField} from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import {useForm, Controller} from "react-hook-form";
 import axios from 'axios'
@@ -49,24 +48,17 @@ const NewIssue = () => {
 
     return (
         <div className={'max-w-xl'}>
-            {error && <Callout.Root color={'red'} className={'mb-5'}>
-                <Callout.Icon>
-                    <BiErrorCircle/>
-                </Callout.Icon>
-                <Callout.Text>
-                    {error}
-                </Callout.Text>
-            </Callout.Root>}
+            {/*TODO: Error text here*/}
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className={'space-y-3'}
             >
-
-                <TextField.Root>
-                    <TextField.Input
-                        {...register("title")}
-                        placeholder={'Title'}/>
-                </TextField.Root>
+                {/*TODO: Issue Title here*/}
+                {/*<TextField.Root>*/}
+                {/*    <TextField.Input*/}
+                {/*        {...register("title")}*/}
+                {/*        placeholder={'Title'}/>*/}
+                {/*</TextField.Root>*/}
                 <ErrorMessage>{errors?.title?.message}</ErrorMessage>
 
                 <Controller
@@ -79,9 +71,9 @@ const NewIssue = () => {
                     {errors?.description?.message}
                 </ErrorMessage>
 
-                <Button disabled={!isValid || isSubmitting}>
+                <button disabled={!isValid || isSubmitting}>
                     Submit New Issue {isSubmitting && <Spinner/>}
-                </Button>
+                </button>
             </form>
         </div>
     );

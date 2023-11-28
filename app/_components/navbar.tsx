@@ -2,7 +2,7 @@
 import Link from "next/link";
 import {FaBug} from "react-icons/fa";
 import {usePathname} from "next/navigation";
-import classnames from 'classnames';
+import {cn} from "@/lib/utils";
 
 const Navbar = () => {
 
@@ -22,12 +22,7 @@ const Navbar = () => {
                 {links.map(link => <li key={link.href}>
                     <Link
                         href={link.href}
-
-                        className={classnames({
-                            'text-gray-400': link.href !== currentPath,
-                            'hover:text-gray-500 transition-colors': true,
-                            'text-gray-900': link.href === currentPath,
-                        })}
+                        className={cn("text-gray-400 hover:text-gray-500 transition-colors", link.href === currentPath && "text-gray-900")}
                     >
                         {link.label}
                     </Link>
