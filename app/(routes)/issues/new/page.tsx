@@ -7,7 +7,7 @@ import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {BiErrorCircle} from "react-icons/bi";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {createIssueSchema} from "@/app/validationSchemas";
+import {createIssueSchema} from "@/schema/validationSchemas";
 import {z} from "zod";
 import ErrorMessage from "@/components/error-message";
 import Spinner from "@/components/spinner";
