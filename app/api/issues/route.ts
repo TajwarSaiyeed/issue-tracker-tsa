@@ -1,5 +1,6 @@
-import {NextRequest, NextResponse} from "next/server";
 import prisma from "@/prisma/client";
+import {NextRequest, NextResponse} from "next/server";
+
 import {createIssueSchema} from "@/schema/validationSchemas";
 
 
