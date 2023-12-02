@@ -24,7 +24,9 @@ model Issue {
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
   assignedToUserId String?     @db.ObjectId
-  assignedToUser   User?       @relation(fields: [assignedToUserId], references: [id])
+  assignedToUser   User?       @relation("AssignedToUser", fields: [assignedToUserId], references: [id])
+  createdByUserId  String      @db.ObjectId
+  createdByUser    User        @relation("CreatedByUser", fields: [createdByUserId], references: [id])
 }
 
 model Account {
@@ -55,12 +57,18 @@ model Session {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String?
-  accounts       Account[]
-  sessions       Session[]
-  assignedIssues Issue[]
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  issuesAssigned Issue[] @relation("AssignedToUser")
+  issuesCreated  Issue[] @relation("CreatedByUser")
+
+  @@unique([id, email])
 }
