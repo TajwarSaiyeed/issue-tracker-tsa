@@ -5,11 +5,9 @@ import axios from 'axios'
 import "easymde/dist/easymde.min.css";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
-import {BiErrorCircle} from "react-icons/bi";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createIssueSchema} from "@/schema/validationSchemas";
 import {z} from "zod";
-import ErrorMessage from "@/components/error-message";
 import Spinner from "@/components/spinner";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
@@ -46,7 +44,6 @@ const NewIssue = () => {
             setSubmitting(false)
         }
     }
-
     return (
         <div className={'max-w-xl'}>
             <Form
@@ -70,12 +67,16 @@ const NewIssue = () => {
                         control={form.control}
                         name={'description'}
                         render={({field}) => (
-                            <SimpleMDE {...field} placeholder={"Description"}/>
+                            <SimpleMDE
+                                {...field}
+                                placeholder={"Description"}
+                                ref={field.ref}
+                            />
                         )}
                     />
 
-                    <Button disabled={!form.formState.isValid || isSubmitting}>
-                        Submit New Issue {" "} {isSubmitting && <Spinner/>}
+                    <Button disabled={!form.formState.isValid || isSubmitting} className={'flex gap-2'}>
+                        Submit New Issue {isSubmitting && <Spinner/>}
                     </Button>
                 </form>
             </Form>

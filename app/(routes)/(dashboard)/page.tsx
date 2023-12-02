@@ -28,7 +28,7 @@ export default async function Home() {
 
 
     return (
-        <section className={'flex flex-col md:flex-row justify-between gap-x-6'}>
+        <section className={'flex flex-col lg:flex-row space-y-5 lg:space-y-0 justify-between gap-x-6'}>
             <Card className={'w-full p-5 md:flex-1'}>
                 <div className={'flex justify-between gap-x-2'}>
                     {issuesSummary.map(i => <Card key={i.title} className={"w-full"}>
@@ -48,7 +48,7 @@ export default async function Home() {
                     </Card>)}
                 </div>
             </Card>
-            <Card className={'w-full p-2 md:w-[500px]'}>
+            <Card className={'w-full p-2 lg:w-[500px]'}>
                 <CardHeader>
                     <CardTitle className={'text-xl'}>
                         Latest Issues

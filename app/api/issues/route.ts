@@ -2,9 +2,18 @@ import prisma from "@/prisma/client";
 import {NextRequest, NextResponse} from "next/server";
 
 import {createIssueSchema} from "@/schema/validationSchemas";
-import {getSession} from "next-auth/react";
+import {getServerSession} from "next-auth";
+import authOptions from "@/app/api/auth/[...nextauth]/authOptions";
 
-
+export async function getSession() {
+    try {
+        return await getServerSession(authOptions);
+    } catch (error) {
+        // If there's an error, log it and return null to indicate no active session
+        console.error("Error while fetching session:", error);
+        return null;
+    }
+}
 export async function POST(req: NextRequest) {
     const session = await getSession();
     if (!session) {
@@ -19,8 +28,9 @@ export async function POST(req: NextRequest) {
 
     const newIssue = await prisma.issue.create({
         data: {
-            title: body.title,
-            description: body.description,
+            title: validated.data.title,
+            description: validated.data.description,
+            createdByUserId: session.user.id,
         }
     })
 

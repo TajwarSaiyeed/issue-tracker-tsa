@@ -4,6 +4,7 @@ import {IssueQuery} from "@/types";
 import prisma from "@/prisma/client";
 import {IssueStatus} from "@prisma/client";
 import IssueTable from "./_components/issue-table";
+import {Button} from "@/components/ui/button";
 
 const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
     const statuses = Object.values(IssueStatus);
@@ -29,11 +30,11 @@ const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
 
     return (
         <div>
-            <button>
+            <Button variant={"secondary"}>
                 <Link href={`/issues/new`}>
                     New Issue
                 </Link>
-            </button>
+            </Button>
 
             {/*issuestable*/}
         </div>
