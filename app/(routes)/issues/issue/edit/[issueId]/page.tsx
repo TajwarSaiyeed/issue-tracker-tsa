@@ -1,5 +1,7 @@
-import {getIssue} from "@/actions/get-issue";
 import {Metadata} from "next";
+import {getIssue} from "@/actions/get-issue";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import IssueBadge from "@/components/issue-badge";
 
 interface IParams {
     params: {
@@ -7,19 +9,30 @@ interface IParams {
     }
 }
 
-const ViewIssue = async ({params: {issueId}}: IParams) => {
+const EditIssue = async ({params: {issueId}}: IParams) => {
     const {issue} = await getIssue(issueId);
     return (
-        <div>
-            Hello world {issue?.title}
-        </div>
+        <section>
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        {issue?.title}
+                    </CardTitle>
+                    <CardContent>
+                        Test
+                        <IssueBadge status={issue?.status} classname={'rounded-md'}/>
+                    </CardContent>
+
+                </CardHeader>
+            </Card>
+        </section>
     );
 };
 
 
-export default ViewIssue;
+export default EditIssue;
 
 export const metadata: Metadata = {
-    title: 'Issue Tracker - View Issue',
-    description: 'View issue details'
+    title: 'Issue Tracker - Edit Issue',
+    description: 'Edit issue details'
 }
