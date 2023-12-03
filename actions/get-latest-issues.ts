@@ -4,6 +4,11 @@ export const getLatestIssues = async () => {
     try {
         const latestIssues = await prisma.issue.findMany({
             take: 20,
+            where: {
+                status: {
+                    in : ["OPEN", "IN_PROGRESS"]
+                }
+            },
             orderBy: {
                 createdAt: "desc"
             }
