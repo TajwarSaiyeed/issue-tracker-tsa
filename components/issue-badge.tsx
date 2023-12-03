@@ -5,7 +5,7 @@ import {Badge} from "@/components/ui/badge";
 import {IssueStatus} from "@prisma/client";
 
 const IssueBadge = ({status, classname} : {
-    status: IssueStatus
+    status?: IssueStatus
     classname?: string
 }) => {
     return (
@@ -17,7 +17,7 @@ const IssueBadge = ({status, classname} : {
                 'bg-green-100 text-green-800': status === IssueStatus.CLOSED
             }, classname)}
         >
-            {status.toLowerCase().split("_").join(" ")}
+            {status?.toLowerCase().split("_").join(" ")}
         </Badge>
     );
 };

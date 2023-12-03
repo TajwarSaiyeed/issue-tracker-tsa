@@ -13,7 +13,7 @@ const LatestIssues = ({issues}: LatestIssuesProps) => {
             {issues.map(i => (
                 <div key={i.id} className="p-2 border-b">
                     <h3 className="text-md font-semibold mb-2">
-                        <Link href={`/issues/issue/${i.id}`}>
+                        <Link href={`/issues/issue/view/${i.id}`}>
                             {i.title}
                         </Link>
                     </h3>
