@@ -1,5 +1,7 @@
 import prisma from "@/prisma/client";
 
+export const revalidate = 0;
+
 export const getLatestIssues = async () => {
     try {
         const latestIssues = await prisma.issue.findMany({
