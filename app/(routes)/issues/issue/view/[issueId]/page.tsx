@@ -1,8 +1,9 @@
-import {getIssue} from "@/actions/get-issue";
 import {Metadata} from "next";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import IssueBadge from "@/components/issue-badge";
-import {formattedDate} from "@/lib/utils";
+import {getIssue} from "@/actions/get-issue";
+import ViewIssueHeader from "@/app/(routes)/issues/issue/view/[issueId]/_components/view-issue-header";
+import NotFound from "@/components/not-found";
+import ViewIssueContent from "@/app/(routes)/issues/issue/view/[issueId]/_components/view-issue-content";
+import {Separator} from "@/components/ui/separator";
 
 interface IParams {
     params: {
@@ -13,24 +14,17 @@ interface IParams {
 const ViewIssue = async ({params: {issueId}}: IParams) => {
     const {issue} = await getIssue(issueId);
 
+    if (!issue) {
+        return (
+            <NotFound href={'/issues'} btnText={"Back to issue"}/>
+        );
+    }
 
     return (
         <section>
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        {issue?.title}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className={'flex gap-x-2'}>
-                    <IssueBadge status={issue?.status} classname={'rounded-md'}/>
-                    <p className={'text-sm text-gray-400'}>
-                        {(issue?.status === "OPEN" || issue?.status === "IN_PROGRESS") ?
-                            `created ${formattedDate(issue?.createdAt as Date)} days ago`
-                            : `was closed ${formattedDate(issue?.updatedAt as Date)} days ago`}
-                    </p>
-                </CardContent>
-            </Card>
+            <ViewIssueHeader issue={issue}/>
+            <Separator className={'my-4 max-w-5xl mx-auto'} />
+            <ViewIssueContent issue={issue}/>
         </section>
     );
 };
