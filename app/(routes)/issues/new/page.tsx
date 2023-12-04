@@ -1,10 +1,9 @@
-'use client'
-import dynamic from "next/dynamic";
-import {useForm, Controller} from "react-hook-form";
+'use client';
+import {useForm} from "react-hook-form";
 import axios from 'axios'
 import "easymde/dist/easymde.min.css";
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createIssueSchema} from "@/schema/validationSchemas";
 import {z} from "zod";
@@ -12,8 +11,8 @@ import Spinner from "@/components/spinner";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
+import Editor from "@/components/editor";
 
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {ssr: false});
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -33,6 +32,20 @@ const NewIssue = () => {
     const router = useRouter()
 
 
+    useEffect(() => {
+        // Update the form value when the React Quill editor content changes
+        form.setValue('description', form.getValues('description'), {
+            shouldValidate: true,
+        });
+    }, [form, form.getValues('description')]);
+
+    const onDescriptionChange = (value: string) => {
+        // Manually update the form value when the React Quill editor content changes
+        form.setValue('description', value, {
+            shouldValidate: true,
+        });
+    };
+
     const onSubmit = async (data: IssueForm) => {
         try {
             setSubmitting(true)
@@ -45,11 +58,11 @@ const NewIssue = () => {
         }
     }
     return (
-        <div className={'max-w-xl'}>
+        <div className={'max-w-5xl mx-auto w-full'}>
             <Form
                 {...form}
             >
-                <form onSubmit={form.handleSubmit(onSubmit)} className={"space-y-2"}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className={"space-y-2 w-full"}>
                     <FormField
                         control={form.control}
                         render={({field}) => (
@@ -63,17 +76,25 @@ const NewIssue = () => {
                         )}
                         name={"title"}
                     />
-                    <Controller
+
+                    <FormField
                         control={form.control}
-                        name={'description'}
                         render={({field}) => (
-                            <SimpleMDE
-                                {...field}
-                                placeholder={"Description"}
-                                ref={field.ref}
-                            />
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Editor value={
+                                        form.getValues('description')
+                                    } onChange={
+                                        onDescriptionChange
+                                    }/>
+                                </FormControl>
+                                <FormMessage/>
+                            </FormItem>
                         )}
+                        name={"description"}
                     />
+
 
                     <Button disabled={!form.formState.isValid || isSubmitting} className={'flex gap-2'}>
                         Submit New Issue {isSubmitting && <Spinner/>}
