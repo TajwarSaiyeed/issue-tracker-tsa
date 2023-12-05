@@ -3,14 +3,19 @@ import IssueBadge from "@/components/issue-badge";
 import {formattedDate} from "@/lib/utils";
 import {Issue} from "@prisma/client";
 import CreateNewIssueButton from "@/components/buttons/create-new-issue";
+import EditIssueButton from "@/components/buttons/edit-issue-button";
 
-const ViewIssueHeader = ({issue}: { issue: Issue }) => {
+const ViewIssueHeader = async ({issue}: { issue: Issue }) => {
+
     return (
         <Card>
             <CardHeader>
                 <CardTitle className={'flex justify-between items-center'}>
                     {issue?.title}
-                    <CreateNewIssueButton/>
+                    <div className={'flex items-center gap-2'}>
+                        <CreateNewIssueButton/>
+                        <EditIssueButton userId={issue.createdByUserId} issueId={issue?.id} buttonType={'text'}/>
+                    </div>
                 </CardTitle>
             </CardHeader>
             <CardContent className={'flex gap-x-2'}>
