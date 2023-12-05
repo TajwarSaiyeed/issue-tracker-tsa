@@ -5,7 +5,7 @@ const ViewIssueContent = ({issue}: {
     issue: Issue
 }) => {
     return (
-        <Card>
+        <Card className={'flex-1'}>
             <CardHeader>
                 <CardTitle>
                     Issue Details
