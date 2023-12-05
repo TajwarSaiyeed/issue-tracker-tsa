@@ -1,8 +1,10 @@
-import {Issue} from "@prisma/client";
+import {Issue, User} from "@prisma/client";
 import prisma from "@/prisma/client";
 
 interface GetIssueResponse {
-    issue: Issue | null;
+    issue: Issue & {
+        createdByUser: User
+    } | null;
     error: string | null;
 }
 
@@ -16,16 +18,21 @@ export const getIssue = async (issueId: string | undefined): Promise<GetIssueRes
         }
 
         const issue = await prisma.issue.findUnique({
-            where: {
-                id: issueId
+                where: {
+                    id: issueId
+                },
+                include: {
+                    createdByUser: true
+                }
             }
-        });
+        )
 
         return {
             issue,
             error: null
         }
-    } catch (e) {
+    } catch
+        (e) {
         console.log("[GET_ISSUE_ERROR]", e);
         return {
             issue: null,

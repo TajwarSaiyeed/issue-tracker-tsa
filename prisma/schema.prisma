@@ -27,6 +27,11 @@ model Issue {
   assignedToUser   User?       @relation("AssignedToUser", fields: [assignedToUserId], references: [id])
   createdByUserId  String      @db.ObjectId
   createdByUser    User        @relation("CreatedByUser", fields: [createdByUserId], references: [id])
+
+  @@unique([id, title])
+  @@index([assignedToUserId], name: "assignedToUserId")
+  @@index([createdByUserId], name: "createdByUserId")
+  @@map("issues")
 }
 
 model Account {
