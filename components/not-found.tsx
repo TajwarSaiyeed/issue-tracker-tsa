@@ -23,11 +23,11 @@ const NotFound = ({
                 className={'text-sm text-gray-400'}
             >{description}</p>
 
-            <Button>
-                <Link href={href}>
+            <Link href={href}>
+                <Button variant={"destructive"}>
                     {btnText}
-                </Link>
-            </Button>
+                </Button>
+            </Link>
         </div>
     );
 };
