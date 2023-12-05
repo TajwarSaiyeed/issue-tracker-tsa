@@ -2,8 +2,7 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import IssueBadge from "@/components/issue-badge";
 import {formattedDate} from "@/lib/utils";
 import {Issue} from "@prisma/client";
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
+import CreateNewIssueButton from "@/components/buttons/create-new-issue";
 
 const ViewIssueHeader = ({issue}: { issue: Issue }) => {
     return (
@@ -11,11 +10,7 @@ const ViewIssueHeader = ({issue}: { issue: Issue }) => {
             <CardHeader>
                 <CardTitle className={'flex justify-between items-center'}>
                     {issue?.title}
-                    <Button variant={"default"} size={"sm"} className={'bg-green-600 hover:bg-green-700'}>
-                        <Link href={`/issues/new`}>
-                            New Issue
-                        </Link>
-                    </Button>
+                    <CreateNewIssueButton/>
                 </CardTitle>
             </CardHeader>
             <CardContent className={'flex gap-x-2'}>

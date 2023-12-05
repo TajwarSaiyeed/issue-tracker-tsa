@@ -5,6 +5,7 @@ import prisma from "@/prisma/client";
 import {IssueStatus} from "@prisma/client";
 import IssueTable from "./_components/issue-table";
 import {Button} from "@/components/ui/button";
+import CreateNewIssueButton from "@/components/buttons/create-new-issue";
 
 const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
     const statuses = Object.values(IssueStatus);
@@ -30,11 +31,7 @@ const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
 
     return (
         <div>
-            <Button variant={"default"} size={"sm"} className={'bg-green-600 hover:bg-green-700'}>
-                <Link href={`/issues/new`}>
-                    New Issue
-                </Link>
-            </Button>
+            <CreateNewIssueButton/>
 
             {/*issuestable*/}
         </div>
