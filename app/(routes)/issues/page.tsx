@@ -30,7 +30,7 @@ const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
 
     return (
         <div>
-            <Button variant={"secondary"}>
+            <Button variant={"default"} size={"sm"} className={'bg-green-600 hover:bg-green-700'}>
                 <Link href={`/issues/new`}>
                     New Issue
                 </Link>
