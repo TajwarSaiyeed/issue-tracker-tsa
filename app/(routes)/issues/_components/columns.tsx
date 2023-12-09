@@ -6,8 +6,39 @@ import {Button} from "@/components/ui/button";
 import {ArrowUpDown} from "lucide-react";
 import {formattedDate} from "@/lib/utils";
 import IssueBadge from "@/components/issue-badge";
-import {useSession} from "next-auth/react";
 import Link from "next/link";
+import {useSession} from "next-auth/react";
+
+export const useUserSession = () => {
+    const {data} = useSession();
+    return data?.user || null;
+};
+
+
+const CellComponent = ({row}: {
+    row: any
+}) => {
+    const user = useUserSession();
+
+    if (!user || row.original.createdByUserId !== user.id) {
+        return (
+            <Link href={`/issues/issue/view/${row.original.id}`}>
+                <Button variant={"default"} size={"sm"} className={'bg-green-600 hover:bg-green-700'}>
+                    View
+                </Button>
+            </Link>
+        );
+    }
+
+    return (
+        <Link href={`/issues/issue/edit/${row.original.id}`}>
+            <Button variant="ghost">
+                Edit
+            </Button>
+        </Link>
+    );
+};
+
 
 
 export const columns: ColumnDef<Issue>[] = [
@@ -54,24 +85,7 @@ export const columns: ColumnDef<Issue>[] = [
     {
         accessorKey: "id",
         header: "Actions",
-        cell: ({row}) => {
-            const {data} = useSession();
-            if (!data?.user || row.original.createdByUserId !== data.user.id) return (
-                <Link href={`/issues/issue/view/${row.original.id}`}>
-                    <Button variant={"default"} size={"sm"} className={'bg-green-600 hover:bg-green-700'}>
-                        View
-                    </Button>
-                </Link>
-            )
-            return (
-                <Link href={`/issues/issue/edit/${row.original.id}`}>
-                    <Button
-                        variant="ghost"
-                    >
-                        Edit
-                    </Button>
-                </Link>
-            );
-        }
+        cell: ({row}) => <CellComponent row={row}/>
     }
 ]
+
