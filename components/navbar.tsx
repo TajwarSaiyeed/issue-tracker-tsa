@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import {FaBug} from "react-icons/fa";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import {signIn, signOut, useSession} from "next-auth/react";
@@ -18,6 +18,7 @@ const Navbar = () => {
         const {data: session, status} = useSession()
 
         const currentPath = usePathname()
+    const router = useRouter()
 
         const links = [
             // {label: 'Dashboard', href: "/"},
@@ -59,9 +60,9 @@ const Navbar = () => {
                             <DropdownMenuContent>
                                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                 <DropdownMenuSeparator/>
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
-                                <DropdownMenuItem>Billing</DropdownMenuItem>
-                                <DropdownMenuItem>Team</DropdownMenuItem>
+                                <DropdownMenuItem
+                                    onClick={() => router.push("/me")}
+                                >Profile</DropdownMenuItem>
                                 <DropdownMenuSeparator/>
                                 <DropdownMenuItem onClick={() => signOut()}>
                                     Sign out
