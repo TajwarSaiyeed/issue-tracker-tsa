@@ -4,6 +4,8 @@ import {NextRequest, NextResponse} from "next/server";
 import {createIssueSchema} from "@/schema/validationSchemas";
 import {getSession} from "@/lib/utils";
 
+export const dynamic = "force-dynamic"
+
 export async function POST(req: NextRequest) {
     const session = await getSession();
     if (!session) {
