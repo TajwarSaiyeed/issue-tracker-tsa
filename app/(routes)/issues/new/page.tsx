@@ -30,6 +30,7 @@ const NewIssue = () => {
     })
 
     const router = useRouter()
+    const editorContent = form.getValues('description');
 
 
     useEffect(() => {
@@ -37,7 +38,7 @@ const NewIssue = () => {
         form.setValue('description', form.getValues('description'), {
             shouldValidate: true,
         });
-    }, [form, form.getValues('description')]);
+    }, [form, editorContent]);
 
     const onDescriptionChange = (value: string) => {
         // Manually update the form value when the React Quill editor content changes
