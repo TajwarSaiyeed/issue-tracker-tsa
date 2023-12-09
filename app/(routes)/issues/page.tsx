@@ -1,39 +1,33 @@
 import {Metadata} from "next";
-import Link from "next/link";
 import {IssueQuery} from "@/types";
 import prisma from "@/prisma/client";
 import {IssueStatus} from "@prisma/client";
-import IssueTable from "./_components/issue-table";
-import {Button} from "@/components/ui/button";
 import CreateNewIssueButton from "@/components/buttons/create-new-issue";
+import {DataTable} from "@/app/(routes)/issues/_components/data-table";
+import {columns} from "@/app/(routes)/issues/_components/columns";
+import {Separator} from "@/components/ui/separator";
 
+export const revalidate = 1;
 const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
     const statuses = Object.values(IssueStatus);
     const status = statuses.includes(searchParams.status)
         ? searchParams.status
         : undefined;
-    const where = {status};
-
-
-    const page = parseInt(searchParams.page) || 1;
-    const pageSize = 10
 
     const issues = await prisma.issue.findMany({
-        where,
+        where: {
+            status: status
+        },
         orderBy: {
             createdAt: 'desc',
         },
-        skip: (page - 1) * pageSize,
-        take: pageSize,
     })
-
-    const issueCount = await prisma.issue.count({where});
 
     return (
         <div>
             <CreateNewIssueButton/>
-
-            {/*issuestable*/}
+            <Separator className={'my-4 max-w-7xl mx-auto'}/>
+            <DataTable columns={columns} data={issues}/>
         </div>
     );
 };
