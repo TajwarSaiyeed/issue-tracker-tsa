@@ -3,7 +3,6 @@ import {Issue} from "@prisma/client";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import IssueBadge from "@/components/issue-badge";
 import EditIssueButton from "@/components/buttons/edit-issue-button";
-import {getSession} from "@/app/api/issues/route";
 
 type LatestIssuesProps = {
     issues: Issue[]

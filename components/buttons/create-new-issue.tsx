@@ -1,7 +1,7 @@
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import {getSession} from "@/app/api/issues/route";
 import {Badge} from "@/components/ui/badge";
+import {getSession} from "@/lib/utils";
 
 const CreateNewIssueButton = async () => {
 

@@ -1,6 +1,6 @@
 import {Card, CardHeader, CardTitle} from "@/components/ui/card";
-import {getSession} from "@/app/api/issues/route";
 import {Metadata} from "next";
+import {getSession} from "@/lib/utils";
 
 const MyProfile = async () => {
     const session = await getSession()

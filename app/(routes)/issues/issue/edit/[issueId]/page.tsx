@@ -2,8 +2,8 @@ import {Metadata} from "next";
 import {getIssue} from "@/actions/get-issue";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import IssueBadge from "@/components/issue-badge";
-import {getSession} from "@/app/api/issues/route";
 import NotFound from "@/components/not-found";
+import {getSession} from "@/lib/utils";
 
 interface IParams {
     params: {

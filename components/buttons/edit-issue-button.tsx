@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button} from "@/components/ui/button";
-import {BiEdit, BiEditAlt} from "react-icons/bi";
+import {BiEdit} from "react-icons/bi";
 import Link from "next/link";
-import {getSession} from "@/app/api/issues/route";
+import {getSession} from "@/lib/utils";
 
 type EditIssueButtonProps = {
     userId: string
