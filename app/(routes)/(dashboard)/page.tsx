@@ -1,12 +1,14 @@
-import {Metadata} from "next";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import LatestIssues from "@/app/(routes)/(dashboard)/_components/latest-issues";
 import {getIssues} from "@/actions/get-issues";
 import IssueBadge from "@/components/issue-badge";
 import {IssueStatus} from "@prisma/client";
 import {getLatestIssues} from "@/actions/get-latest-issues";
+import IssueGraph from "@/app/(routes)/(dashboard)/_components/issue-graph";
+import {Metadata} from "next";
 
 export const revalidate = 0;
+
 export default async function Home() {
     const {openIssues, inProgressIssues, closedIssues} = await getIssues()
     const {latestIssues} = await getLatestIssues()
@@ -47,6 +49,7 @@ export default async function Home() {
                         </CardContent>
                     </Card>)}
                 </div>
+                <IssueGraph OpenIssues={openIssues} InProgressIssues={inProgressIssues} ClosedIssues={closedIssues}/>
             </Card>
             <Card className={'w-full p-2 lg:w-[500px]'}>
                 <CardHeader>
@@ -66,10 +69,10 @@ export default async function Home() {
     )
 }
 
-
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-    title: 'Issue Tracker - Dashboard',
-    description: 'View a summary of project issues'
-};
+    title: "Dashboard",
+    description: "Dashboard",
+}
+
