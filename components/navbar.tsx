@@ -21,10 +21,8 @@ const Navbar = () => {
     const router = useRouter()
 
         const links = [
-            // {label: 'Dashboard', href: "/"},
             {label: 'Issues', href: "/issues"},
         ];
-
 
         return (
             <nav className={'flex border-b mb-5 px-10 h-14 items-center justify-between'}>
@@ -41,7 +39,6 @@ const Navbar = () => {
                                 {link.label}
                             </Link>
                         </li>)}
-
                     </ul>
                 </div>
                 {status === 'loading' ? <Skeleton className="w-[100px] h-[40px] rounded-md"/>
