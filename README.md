@@ -3,6 +3,8 @@
 Issue Tracker TSA is an open-source issue tracker app built with Next.js, Prisma, TypeScript, and MongoDB. Inspired by
 StackOverflow, it allows users to create, manage, and track issues collaboratively.
 
+![img](./issue-img.png)
+
 ## Features:
 
 - Public dashboard for everyone
