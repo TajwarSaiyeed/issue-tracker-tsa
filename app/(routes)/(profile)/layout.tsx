@@ -25,7 +25,7 @@ const ProfileLayout = ({children}: {
         <>
             <div className="space-y-4">
                 <h1 className="text-3xl font-bold">Welcome back, User!</h1>
-                <p className="text-gray-500 dark:text-gray-400">Here's what's happening with your profile.</p>
+                <p className="text-gray-500 dark:text-gray-400">Here&apos;s what&apos;s happening with your profile.</p>
             </div>
             <Card>
                 <CardContent className="space-y-4">
