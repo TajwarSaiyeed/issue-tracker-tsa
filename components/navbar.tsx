@@ -25,10 +25,10 @@ const Navbar = () => {
         ];
 
         return (
-            <nav className={'flex border-b mb-5 px-10 h-14 items-center justify-between'}>
-                <div className={'flex gap-x-6'}>
+            <nav className={'flex border-b mb-5 px-6 sm:px-10 h-14 items-center justify-between'}>
+                <div className={'flex items-center gap-x-3 sm:gap-x-6'}>
                     <Link href={'/'} className={'flex items-center gap-x-2 font-bold uppercase text-teal-500'}>
-                        <FaBug/> Issue Tracker
+                        <FaBug/> <span className={'hidden sm:block'}>Issue Tracker</span>
                     </Link>
                     <ul className={'flex space-x-6'}>
                         {links.map(link => <li key={link.href}>
