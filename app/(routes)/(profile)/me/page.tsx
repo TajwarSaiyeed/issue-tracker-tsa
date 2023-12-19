@@ -8,7 +8,7 @@ const MyProfile = () => {
     )
 }
 
-
+export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
     title: "My Profile",
     description: "My Profile",
