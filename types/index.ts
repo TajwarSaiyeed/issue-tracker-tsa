@@ -5,3 +5,11 @@ export type IssueQuery = {
     orderBy: keyof Issue;
     page: string;
 }
+
+
+export type issuesSummaryProps = {
+    issuesSummary: {
+        title: string,
+        value: number
+    } []
+}
