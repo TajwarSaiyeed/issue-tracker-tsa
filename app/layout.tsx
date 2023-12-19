@@ -5,6 +5,7 @@ import {Inter as FontSans} from "next/font/google"
 import Navbar from "@/components/navbar"
 import {cn} from "@/lib/utils";
 import AuthProvider from "@/providers/auth-provider";
+import ToastProvider from "@/providers/toast-provider";
 
 const fontSans = FontSans({
     subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
             )}
         >
         <AuthProvider>
+            <ToastProvider/>
             <Navbar/>
             <main className={"max-w-7xl mx-auto p-5"}>{children}</main>
         </AuthProvider>
