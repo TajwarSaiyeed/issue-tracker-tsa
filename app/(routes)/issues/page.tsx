@@ -2,10 +2,12 @@ import {Metadata} from "next";
 import {IssueQuery} from "@/types";
 import prisma from "@/prisma/client";
 import {IssueStatus} from "@prisma/client";
-import CreateNewIssueButton from "@/components/buttons/create-new-issue";
-import {DataTable} from "@/app/(routes)/issues/_components/data-table";
-import {columns} from "@/app/(routes)/issues/_components/columns";
+
+import {DataTable} from "@/components/data-table";
+import {columns} from "@/components/columns";
 import {Separator} from "@/components/ui/separator";
+
+import CreateNewIssueButton from "@/components/buttons/create-new-issue";
 
 export const revalidate = 1;
 const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
