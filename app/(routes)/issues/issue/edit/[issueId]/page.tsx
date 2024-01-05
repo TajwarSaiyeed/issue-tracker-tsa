@@ -53,6 +53,8 @@ const EditIssue = async ({params: {issueId}}: IParams) => {
                     <CardContent>
                         Test
                         <IssueBadge status={issue?.status} classname={'rounded-md'}/>
+
+                        Testing
                     </CardContent>
 
                 </CardHeader>
