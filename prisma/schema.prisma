@@ -27,6 +27,7 @@ model Issue {
   assignedToUser   User?       @relation("AssignedToUser", fields: [assignedToUserId], references: [id])
   createdByUserId  String      @db.ObjectId
   createdByUser    User        @relation("CreatedByUser", fields: [createdByUserId], references: [id])
+  solutions        Solution[]
 
   @@unique([id, title])
   @@index([assignedToUserId], name: "assignedToUserId")
@@ -72,8 +73,53 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  issuesAssigned Issue[] @relation("AssignedToUser")
-  issuesCreated  Issue[] @relation("CreatedByUser")
+  issuesAssigned Issue[]    @relation("AssignedToUser")
+  issuesCreated  Issue[]    @relation("CreatedByUser")
+  solutions      Solution[]
+  upVotes        UpVote[]
+  downVotes      DownVote[]
 
   @@unique([id, email])
+}
+
+model Solution {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  issueId   String     @db.ObjectId
+  userId    String     @db.ObjectId
+  upVotes   UpVote[]
+  downVotes DownVote[]
+  data      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  issue Issue @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([issueId, userId])
+}
+
+model UpVote {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  solutionId String   @db.ObjectId
+  userId     String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  solution Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([solutionId, userId])
+}
+
+model DownVote {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  solutionId String   @db.ObjectId
+  userId     String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  solution Solution @relation(fields: [solutionId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([solutionId, userId])
 }

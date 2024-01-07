@@ -1,9 +1,8 @@
 import {Metadata} from "next";
 import {getIssue} from "@/actions/get-issue";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import IssueBadge from "@/components/issue-badge";
 import NotFound from "@/components/not-found";
 import {getSession} from "@/lib/utils";
+import {EditIssueHeader} from "@/app/(routes)/issues/issue/edit/[issueId]/_components/edit-issue-header";
 
 interface IParams {
     params: {
@@ -45,20 +44,8 @@ const EditIssue = async ({params: {issueId}}: IParams) => {
 
     return (
         <section>
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        {issue?.title}
-                    </CardTitle>
-                    <CardContent>
-                        Test
-                        <IssueBadge status={issue?.status} classname={'rounded-md'}/>
+            <EditIssueHeader issue={issue}/>
 
-                        Testing
-                    </CardContent>
-
-                </CardHeader>
-            </Card>
         </section>
     );
 };
@@ -67,6 +54,6 @@ const EditIssue = async ({params: {issueId}}: IParams) => {
 export default EditIssue;
 
 export const metadata: Metadata = {
-    title: 'Issue Tracker - Edit Issue',
-    description: 'Edit issue details'
+    title: "Issue Tracker - Edit Issue",
+    description: 'Edit issue details',
 }
