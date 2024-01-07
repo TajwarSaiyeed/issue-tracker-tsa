@@ -3,6 +3,7 @@ import {getIssue} from "@/actions/get-issue";
 import NotFound from "@/components/not-found";
 import {getSession} from "@/lib/utils";
 import {EditIssueHeader} from "@/app/(routes)/issues/issue/edit/[issueId]/_components/edit-issue-header";
+import {EditIssueDescription} from "@/app/(routes)/issues/issue/edit/[issueId]/_components/edit-issue-description";
 
 interface IParams {
     params: {
@@ -43,9 +44,9 @@ const EditIssue = async ({params: {issueId}}: IParams) => {
 
 
     return (
-        <section>
+        <section className={'space-y-4'}>
             <EditIssueHeader issue={issue}/>
-
+            <EditIssueDescription issue={issue}/>
         </section>
     );
 };
