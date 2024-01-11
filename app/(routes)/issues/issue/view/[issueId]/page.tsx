@@ -17,6 +17,23 @@ interface IParams {
     }
 }
 
+export const generateMetadata = async ({params: {issueId}}: IParams) => {
+    const {issue} = await getIssue(issueId);
+
+    if (!issue) {
+        return {
+            title: 'Issue Tracker - View Issue',
+            description: 'View issue details'
+        };
+    }
+
+    return {
+        title: issue.title,
+        description: issue.description
+    };
+}
+
+
 const ViewIssue = async ({params: {issueId}}: IParams) => {
     const {issue} = await getIssue(issueId);
 
@@ -43,8 +60,3 @@ const ViewIssue = async ({params: {issueId}}: IParams) => {
 
 
 export default ViewIssue;
-
-export const metadata: Metadata = {
-    title: 'Issue Tracker - View Issue',
-    description: 'View issue details'
-}
