@@ -9,7 +9,7 @@ import {Separator} from "@/components/ui/separator";
 
 import CreateNewIssueButton from "@/components/buttons/create-new-issue";
 
-export const revalidate = 1;
+export const revalidate = 120;
 const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
     const statuses = Object.values(IssueStatus);
     const status = statuses.includes(searchParams.status)
@@ -26,11 +26,11 @@ const IssuesPage = async ({searchParams}: { searchParams: IssueQuery }) => {
     })
 
     return (
-        <div>
+        <>
             <CreateNewIssueButton/>
             <Separator className={'my-4 max-w-7xl mx-auto'}/>
-            <DataTable columns={columns} data={issues}/>
-        </div>
+            <DataTable searchLabel={'title'} columns={columns} data={issues}/>
+        </>
     );
 };
 

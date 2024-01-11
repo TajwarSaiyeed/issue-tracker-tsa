@@ -55,6 +55,13 @@ export const columns: ColumnDef<Issue>[] = [
                 </Button>
             );
         },
+        cell: ({row}) => {
+            return (
+                <Link prefetch href={`/issues/issue/view/${row.original.id}`} className={'hover:text-blue-600'}>
+                    {row.original.title.length > 40 ? row.original.title.slice(0, 40) + '...' : row.original.title}
+                </Link>
+            );
+        }
     },
     {
         accessorKey: "status",
