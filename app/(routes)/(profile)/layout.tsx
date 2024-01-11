@@ -14,10 +14,6 @@ const ProfileLayout = async ({children}: {
 
     const links = [
         {
-            name: "My Profile",
-            href: "/me",
-        },
-        {
             name: "My Issues",
             href: "/my-issues"
         }

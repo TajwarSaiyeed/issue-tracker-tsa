@@ -22,7 +22,7 @@ const MyIssues = async () => {
     const {issues} = await getMyIssueData(data?.user?.id);
     return (
         <>
-            <DataTable columns={columns} data={issues}/>
+            <DataTable searchLabel={'title'} columns={columns} data={issues}/>
         </>
     );
 };
