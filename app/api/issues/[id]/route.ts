@@ -28,3 +28,27 @@ export async function PATCH(req: Request, {params}: {
         return NextResponse.json({error: "Something went wrong"}, {status: 500})
     }
 }
+
+
+export async function DELETE(req: Request, {params}: {
+    params: {
+        id: string
+    }
+}) {
+    try {
+        const session = await getSession();
+        if (!session) {
+            return NextResponse.json({error: 'Unauthorized'}, {status: 401});
+        }
+
+        await prisma.issue.delete({
+            where: {
+                id: params.id
+            },
+        })
+
+        return NextResponse.json({success: true}, {status: 200});
+    } catch (e) {
+        return NextResponse.json({error: "Something went wrong"}, {status: 500})
+    }
+}

@@ -37,12 +37,39 @@ type IssueHeaderProps = {
     issue: Issue
 }
 export const EditIssueHeader = ({issue}: IssueHeaderProps) => {
+    const router = useRouter();
+
+    const handleDeleteIssue = async () => {
+        try {
+            const res = await axios.delete(`/api/issues/${issue?.id}`);
+            console.log(res);
+            toast.success("Success", {
+                duration: 2000,
+                position: "top-right",
+                description: "Issue deleted successfully",
+            })
+        } catch (error: Error | any) {
+            console.log(error);
+        } finally {
+            router.push("/issues")
+            router.refresh()
+        }
+    }
+
+
     return (
         <Card>
             <CardHeader>
-                <CardTitle className={'flex justify-between items-center'}>
+                <CardTitle className={'flex justify-between items-center text-lg'}>
                     {issue?.title}
-                    <UpdateIssueHeader issue={issue}/>
+                    <div className={'space-x-2'}>
+                        <UpdateIssueHeader issue={issue}/>
+                        <Button
+                            onClick={handleDeleteIssue}
+                            variant={'destructive'} size={'sm'}>
+                            Delete
+                        </Button>
+                    </div>
                 </CardTitle>
             </CardHeader>
             <CardContent className={'flex gap-x-2'}>
