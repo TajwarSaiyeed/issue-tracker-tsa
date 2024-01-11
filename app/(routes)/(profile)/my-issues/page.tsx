@@ -1,6 +1,6 @@
 import {Metadata} from "next";
 import {redirect} from "next/navigation";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 
 import {columns} from "@/components/columns";
 import {DataTable} from "@/components/data-table";
@@ -12,7 +12,11 @@ import {getMyIssueData} from "@/actions/get-my-issue-data";
 const MyIssues = async () => {
     const data = await getSession()
     if (!data) {
-        toast.error("You must be logged in to view this page.")
+        toast.error("Error", {
+            duration: 2000,
+            position: "top-right",
+            description: "You must be logged in to view this page.",
+        });
         return redirect('/')
     }
     const {issues} = await getMyIssueData(data?.user?.id);

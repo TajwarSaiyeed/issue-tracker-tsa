@@ -5,9 +5,9 @@ import * as z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Issue} from "@prisma/client";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import axios from "axios";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 import {useRouter} from "next/navigation";
 import Editor from "@/components/editor";
 import {Button} from "@/components/ui/button";
@@ -45,7 +45,11 @@ export const EditIssueDescription = ({issue}: EditIssueDescriptionProps) => {
     const handleUpdateDescription = async (values: UpdateIssueDescriptionType) => {
         try {
             await axios.patch(`/api/issues/${issue?.id}`, values);
-            toast.success("Issue updated successfully");
+            toast.success("Updated", {
+                duration: 2000,
+                position: "top-right",
+                description: "Issue updated successfully",
+            });
         } catch (e: Error | any) {
             console.log(e);
         } finally {

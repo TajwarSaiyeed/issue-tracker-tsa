@@ -2,7 +2,7 @@ import {redirect} from "next/navigation";
 import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area";
 import {cn, getSession} from "@/lib/utils";
 import ProfileHeader from "./components/profile-header"
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 import ProfileLink from "@/app/(routes)/(profile)/components/profile-link";
 import {Separator} from "@/components/ui/separator";
 import {getMyIssueData} from "@/actions/get-my-issue-data";

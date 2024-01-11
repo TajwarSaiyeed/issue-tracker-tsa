@@ -31,7 +31,7 @@ import {UpdateIssueHeaderSchema} from "@/schema/validationSchemas";
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 
 type IssueHeaderProps = {
     issue: Issue
@@ -72,7 +72,11 @@ const UpdateIssueHeader = ({issue}: IssueHeaderProps) => {
     const handleSubmit = async (values: UpdateIssueHeaderType) => {
         try {
             await axios.patch(`/api/issues/${issue?.id}`, values);
-            toast.success("Issue updated successfully");
+            toast.success("Updated", {
+                duration: 2000,
+                position: "top-right",
+                description: "Issue updated successfully",
+            });
         } catch (e: Error | any) {
             console.log(e);
         } finally {
