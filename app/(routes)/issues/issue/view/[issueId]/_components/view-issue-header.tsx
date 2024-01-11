@@ -11,7 +11,7 @@ const ViewIssueHeader = async ({issue}: { issue: Issue }) => {
         <Card>
             <CardHeader>
                 <CardTitle className={'flex justify-between items-center'}>
-                    {issue?.title}
+                    {issue?.title.length > 70 ? issue?.title.slice(0, 70) + '...' : issue?.title}
                     <div className={'flex items-center gap-2'}>
                         <CreateNewIssueButton/>
                         <EditIssueButton userId={issue.createdByUserId} issueId={issue?.id} buttonType={'text'}/>
