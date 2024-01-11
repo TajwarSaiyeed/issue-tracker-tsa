@@ -5,13 +5,13 @@ const ViewIssueContent = ({issue}: {
     issue: Issue
 }) => {
     return (
-        <Card className={'flex-1'}>
+        <Card className={'flex-1 overflow-x-auto max-w-2xl md:max-w-full '}>
             <CardHeader>
                 <CardTitle>
                     Issue Details
                 </CardTitle>
             </CardHeader>
-            <CardContent className={'flex gap-x-2'}>
+            <CardContent>
                 <div dangerouslySetInnerHTML={{__html: issue?.description}} className={'text-sm'}/>
             </CardContent>
         </Card>
